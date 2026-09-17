@@ -1,5 +1,5 @@
 import argparse
-
+import os
 import mlflow
 import mlflow.sklearn
 from sklearn.datasets import load_iris
@@ -26,7 +26,9 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=args.test_size, random_state=42, stratify=y
     )
-
+    mlflow.set_tracking_uri(
+            "file://" + os.path.abspath("mlruns")
+        )
     mlflow.set_experiment("iris-random-forest")
 
     with mlflow.start_run():
