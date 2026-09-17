@@ -49,7 +49,11 @@ def main():
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("f1_score", f1)
 
-        mlflow.sklearn.log_model(model, artifact_path="model")
+        mlflow.sklearn.log_model(
+            model,
+            name="model",
+            skops_trusted_types=["sklearn.tree._tree.Tree"]
+        )
 
         print(f"n_estimators: {args.n_estimators}")
         print(f"max_depth: {args.max_depth}")
